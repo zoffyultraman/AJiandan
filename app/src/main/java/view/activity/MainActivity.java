@@ -110,7 +110,6 @@ public class MainActivity extends BeamBaseActivity<MainActivityPresenter>
         Log.i("TAG", "TAG");
     }
 
-
     @Override
     public void onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.END)) {
