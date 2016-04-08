@@ -6,40 +6,39 @@ import java.io.Serializable;
 public class duanzi {
 
     String Author;
-    String Date;
     String Content;
-    String Title;
     String Like;
     String Dislike;
+    String PostTime;
 
-    public duanzi(String author, String date, String content, String title, String like, String dislike) {
+    public duanzi(String author,  String content,String like, String dislike,String Posttime) {
         Author = author;
-        Date = date;
         Content = content;
-        Title = title;
         Like = like;
         Dislike = dislike;
+        PostTime = Posttime;
     }
 
     public duanzi() {
     }
 
+    public String getPostTime() {
+        return PostTime;
+    }
+
+    public void setPostTime(String postTime) {
+        PostTime = postTime;
+    }
 
     public void setAuthor(String author) {
         Author = author;
     }
 
-    public void setDate(String date) {
-        Date = date;
-    }
 
     public void setContent(String content) {
         Content = content;
     }
 
-    public void setTitle(String title) {
-        Title = title;
-    }
 
     public void setLike(String like) {
         Like = like;
@@ -53,17 +52,11 @@ public class duanzi {
         return Author;
     }
 
-    public String getDate() {
-        return Date;
-    }
 
     public String getContent() {
         return Content;
     }
 
-    public String getTitle() {
-        return Title;
-    }
 
     public String getLike() {
         return Like;
@@ -77,11 +70,10 @@ public class duanzi {
     public String toString() {
         return "duanzi{" +
                 "Author='" + Author + '\'' +
-                ", Date='" + Date + '\'' +
                 ", Content='" + Content + '\'' +
-                ", Title='" + Title + '\'' +
                 ", Like='" + Like + '\'' +
                 ", Dislike='" + Dislike + '\'' +
+                ", PostTime='" + PostTime + '\'' +
                 '}';
     }
 }
