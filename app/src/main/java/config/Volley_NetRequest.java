@@ -2,7 +2,6 @@ package config;
 
 import android.content.Context;
 import android.util.Log;
-import android.widget.EditText;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -11,7 +10,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import model.PicParser;
 import model.duanziParser;
 
 public class Volley_NetRequest {
@@ -48,7 +46,7 @@ public class Volley_NetRequest {
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
-                            Log.i("TAG", "----------------result------------------------");
+                            Log.i("TAG", "----------------result-----------------");
                             duanziParser duanziParser = new duanziParser(response);
                             duanziParser.getResult();
                         }
