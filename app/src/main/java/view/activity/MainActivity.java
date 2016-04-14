@@ -11,8 +11,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 
 import com.jude.beam.expansion.BeamBaseActivity;
@@ -20,12 +18,9 @@ import com.panshen.ajiandan.ajiandan.R;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
-import model.Config;
-import config.Volley_NetRequest;
 import presenter.MainActivityPresenter;
 import view.fragment.PicFragment;
-import view.fragment.WuliaoFragment;
+import view.fragment.DuanziFragment;
 
 public class MainActivity extends BeamBaseActivity<MainActivityPresenter>
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -41,10 +36,11 @@ public class MainActivity extends BeamBaseActivity<MainActivityPresenter>
     AppBarLayout appBarLayout;
     @Bind(R.id.frag_contener)
     FrameLayout framelayout;
-    WuliaoFragment wuliaof;
     PicFragment picf;
+    DuanziFragment bbb;
     FragmentTransaction fragmenttransaction;
     FragmentManager fragmentmanager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,11 +69,11 @@ public class MainActivity extends BeamBaseActivity<MainActivityPresenter>
     }
 
     public void initragment() {
-        wuliaof = new WuliaoFragment();
         picf = new PicFragment();
-         fragmentmanager = getSupportFragmentManager();
+        bbb = new DuanziFragment();
+        fragmentmanager = getSupportFragmentManager();
         fragmenttransaction = fragmentmanager.beginTransaction();
-        fragmenttransaction.replace(R.id.frag_contener, wuliaof).commit();
+        fragmenttransaction.replace(R.id.frag_contener, bbb).commit();
 //        new Thread() {
 //            @Override
 //            public void run() {
@@ -120,11 +116,10 @@ public class MainActivity extends BeamBaseActivity<MainActivityPresenter>
 
         if (id == R.id.nav_camera) {
             fragmenttransaction = fragmentmanager.beginTransaction();
-            fragmenttransaction.replace(R.id.frag_contener, wuliaof).commit();
+            fragmenttransaction.replace(R.id.frag_contener, bbb).commit();
         } else if (id == R.id.nav_gallery) {
             fragmenttransaction = fragmentmanager.beginTransaction();
             fragmenttransaction.replace(R.id.frag_contener, picf).commit();
-
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {

@@ -1,16 +1,16 @@
-package config;
+package com.panshen.ajiandan.ajiandan;
 
 import android.content.Context;
-import android.util.Log;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import model.duanziParser;
+import java.util.List;
+
+import model.model.duanziParser;
 
 public class Volley_NetRequest {
     private volatile static Volley_NetRequest instance;
@@ -40,37 +40,32 @@ public class Volley_NetRequest {
     /*
     添加一个任务到队列中
     * */
-    public void addToQueue(String str) {
+    public void addToQueue(String str,final ListCallback callback) {
         try {
             StringRequest stringRequest = new StringRequest(str,
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
-                            Log.i("TAG", "----------------result-----------------");
                             duanziParser duanziParser = new duanziParser(response);
-                            duanziParser.getResult();
+                            callback.onSuccess(duanziParser.getResult());
                         }
                     }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-
+                    callback.onError("Volley Error");
                 }
             });
-            if(mQueue!=null)
-            mQueue.add(stringRequest);
+            if (mQueue != null)
+                mQueue.add(stringRequest);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void cancelAll(){
-        if(mQueue!=null)
-        mQueue.cancelAll(new RequestQueue.RequestFilter() {
-            @Override
-            public boolean apply(Request<?> request) {
-                return false;
-            }
-        });
-    }
+    public interface ListCallback {
 
+        public void onSuccess(List list);
+
+        public void onError(String error);
+    }
 }

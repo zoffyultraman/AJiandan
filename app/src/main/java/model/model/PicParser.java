@@ -1,9 +1,4 @@
-package model;
-
-import android.util.Log;
-import android.widget.EditText;
-
-import com.jude.utils.JUtils;
+package model.model;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -13,7 +8,7 @@ import org.jsoup.select.Elements;
 import java.util.ArrayList;
 import java.util.List;
 
-import bean.girl;
+import model.bean.girl;
 
 //解析pic html 的类
 public class PicParser {

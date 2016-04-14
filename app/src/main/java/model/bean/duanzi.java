@@ -1,4 +1,4 @@
-package bean;
+package model.bean;
 
 import java.io.Serializable;
 
@@ -33,7 +33,6 @@ public class duanzi {
     public void setAuthor(String author) {
         Author = author;
     }
-
 
     public void setContent(String content) {
         Content = content;

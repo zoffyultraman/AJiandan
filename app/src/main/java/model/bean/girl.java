@@ -1,4 +1,4 @@
-package bean;
+package model.bean;
 
 public class girl {
     String thumburl;

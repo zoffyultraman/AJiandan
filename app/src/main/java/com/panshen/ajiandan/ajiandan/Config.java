@@ -1,4 +1,4 @@
-package model;
+package com.panshen.ajiandan.ajiandan;
 
 public class Config {
     //http://jandan.net/ooxx/page-1935#comments 去掉頁碼 使用的時候添加上去
