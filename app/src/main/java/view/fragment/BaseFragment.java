@@ -1,27 +1,29 @@
 package view.fragment;
 
 import android.os.Bundle;
-import android.os.HandlerThread;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.panshen.ajiandan.ajiandan.Volley_NetRequest;
-import com.panshen.ajiandan.ajiandan.Config;
+import com.jude.beam.bijection.BeamFragment;
+import com.jude.beam.bijection.RequiresPresenter;
 
+import model.callback.Volley_NetRequestModel;
+
+import presenter.Duanzipresenter;
 import widget.UIToast;
 
+@RequiresPresenter(Duanzipresenter.class)
+public abstract class BaseFragment extends BeamFragment<Duanzipresenter> implements Volley_NetRequestModel.ListCallback  {
+    protected abstract View getLayout();
 
-public abstract class BaseFragment extends Fragment implements Volley_NetRequest.ListCallback {
-    public abstract View getLayout();
+    protected abstract void init();
 
-    public abstract void init();
+    protected abstract void inidata();
 
-    public abstract void inidata();
+    protected UIToast uiToast;
 
-    public UIToast uiToast;
 
     @Nullable
     @Override
@@ -29,8 +31,8 @@ public abstract class BaseFragment extends Fragment implements Volley_NetRequest
         uiToast = new UIToast(getActivity());
         return getLayout();
     }
-    public UIToast getToast(){
+
+    public UIToast getToast() {
         return uiToast;
     }
-
 }

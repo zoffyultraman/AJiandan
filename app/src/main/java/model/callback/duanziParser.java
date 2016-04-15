@@ -1,4 +1,6 @@
-package model.model;
+package model.callback;
+
+import android.util.Log;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -6,31 +8,32 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import model.bean.duanzi;
+import view.fragment.DuanziFragment;
 
 //解析pic html 的类
-public class duanziParser {
+public class DuanziParser {
     ArrayList results = new ArrayList<>();
 
-    public duanziParser(String html) {
+    public DuanziParser(String html) {
         try {
             Document doc = Jsoup.parse(html);
             Element body = doc.body();
             Elements items = body.select("ol.commentlist").select("li");
             for (Element item : items) {
+                if (DuanziFragment.mPage == 0)
+                    DuanziFragment.mPage = getPage(item);
                 String textattuibitt = item.text();
                 duanzi g = new duanzi();
                 g.setContent(getContent(item));
-                if("".equals(g.getContent()))
+                if ("".equals(g.getContent()))
                     continue;
                 g.setAuthor(getAuthor(textattuibitt));
                 g.setPostTime(getposttime(textattuibitt));
                 g.setLike(getlike(textattuibitt));
                 g.setDislike(dislike(textattuibitt));
-
-
+                Log.i("duanziTAG", g.toString());
                 results.add(g);
             }
         } catch (Exception e) {
@@ -42,11 +45,11 @@ public class duanziParser {
         return results;
     }
 
-    public static String getAuthor(String str) {
+    public static String getAuthor(String str) throws Exception {
         return str.split("\\ ")[0];
     }
 
-    public static String getposttime(String str) {
+    public static String getposttime(String str) throws Exception {
         String posttime = "";
         try {
             posttime = str.split("\\ ")[2] + str.split("\\ ")[3];
@@ -57,7 +60,7 @@ public class duanziParser {
     }
 
 
-    public static String getContent(Element ele) {
+    public static String getContent(Element ele) throws Exception {
         String content = "";
         try {
             content = ele.select("p").first().text();
@@ -68,7 +71,7 @@ public class duanziParser {
         return content;
     }
 
-    public static String getlike(String str) {
+    public static String getlike(String str) throws Exception {
         String like = "";
         try {
             like = str.split("\\ OO")[1].split("\\ XX")[0];
@@ -78,7 +81,7 @@ public class duanziParser {
         return like;
     }
 
-    public static String dislike(String str) {
+    public static String dislike(String str) throws Exception {
         String like = "";
         try {
             like = str.split("\\ OO")[1].split("\\ XX")[1];
@@ -86,5 +89,12 @@ public class duanziParser {
             like = "";
         }
         return like;
+    }
+
+    private int getPage(Element item) throws Exception {
+        String aherf = (item.select("a[href]").get(1)).toString();
+        String pageNum = aherf.split("\\-")[1].split("\\#")[0];
+        Log.i("pageNumTAG", pageNum);
+        return Integer.valueOf(pageNum);
     }
 }

@@ -1,4 +1,4 @@
-package com.panshen.ajiandan.ajiandan;
+package model.callback;
 
 import android.content.Context;
 
@@ -10,24 +10,22 @@ import com.android.volley.toolbox.Volley;
 
 import java.util.List;
 
-import model.model.duanziParser;
-
-public class Volley_NetRequest {
-    private volatile static Volley_NetRequest instance;
+public class Volley_NetRequestModel {
+    private volatile static Volley_NetRequestModel instance;
     Context context;
     RequestQueue mQueue = null;
 
-    private Volley_NetRequest(Context context) {
+    private Volley_NetRequestModel(Context context) {
         this.context = context;
         mQueue = Volley.newRequestQueue(context);
     }
 
-    public static Volley_NetRequest getInstance(Context context) {
+    public static Volley_NetRequestModel getInstance(Context context) {
         try {
             if (instance == null) {
-                synchronized (Volley_NetRequest.class) {
+                synchronized (Volley_NetRequestModel.class) {
                     if (instance == null) {
-                        instance = new Volley_NetRequest(context);
+                        instance = new Volley_NetRequestModel(context);
                     }
                 }
             }
@@ -46,8 +44,8 @@ public class Volley_NetRequest {
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
-                            duanziParser duanziParser = new duanziParser(response);
-                            callback.onSuccess(duanziParser.getResult());
+                            DuanziParser DuanziParser = new DuanziParser(response);
+                            callback.onSuccess(DuanziParser.getResult());
                         }
                     }, new Response.ErrorListener() {
                 @Override

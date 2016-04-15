@@ -1,4 +1,4 @@
-package model.model;
+package model.callback;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

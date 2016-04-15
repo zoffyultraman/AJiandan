@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
+import com.jude.beam.bijection.RequiresPresenter;
 import com.jude.beam.expansion.BeamBaseActivity;
 import com.panshen.ajiandan.ajiandan.R;
 
@@ -21,7 +22,9 @@ import butterknife.ButterKnife;
 import presenter.MainActivityPresenter;
 import view.fragment.PicFragment;
 import view.fragment.DuanziFragment;
+import view.fragment.testfrag;
 
+@RequiresPresenter(MainActivityPresenter.class)
 public class MainActivity extends BeamBaseActivity<MainActivityPresenter>
         implements NavigationView.OnNavigationItemSelectedListener {
     @Bind(R.id.toolbar)
@@ -36,8 +39,10 @@ public class MainActivity extends BeamBaseActivity<MainActivityPresenter>
     AppBarLayout appBarLayout;
     @Bind(R.id.frag_contener)
     FrameLayout framelayout;
+
     PicFragment picf;
     DuanziFragment bbb;
+    testfrag ff;
     FragmentTransaction fragmenttransaction;
     FragmentManager fragmentmanager;
 
@@ -46,11 +51,12 @@ public class MainActivity extends BeamBaseActivity<MainActivityPresenter>
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        initapperence();
-        initragment();
+        initview();
+        initfrag();
+        getPresenter().fun();
     }
 
-    public void initapperence() {
+    public void initview() {
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
@@ -68,19 +74,14 @@ public class MainActivity extends BeamBaseActivity<MainActivityPresenter>
 //        });
     }
 
-    public void initragment() {
+    public void initfrag() {
         picf = new PicFragment();
         bbb = new DuanziFragment();
+        ff = new testfrag();
         fragmentmanager = getSupportFragmentManager();
         fragmenttransaction = fragmentmanager.beginTransaction();
         fragmenttransaction.replace(R.id.frag_contener, bbb).commit();
-//        new Thread() {
-//            @Override
-//            public void run() {
-//                super.run();
-//                Volley_NetRequest.getInstance(MainActivity.this).addToQueue(Config.DUANZIHOST);
-//            }
-//        }.start();
+
     }
 
 
@@ -121,7 +122,8 @@ public class MainActivity extends BeamBaseActivity<MainActivityPresenter>
             fragmenttransaction = fragmentmanager.beginTransaction();
             fragmenttransaction.replace(R.id.frag_contener, picf).commit();
         } else if (id == R.id.nav_slideshow) {
-
+            fragmenttransaction = fragmentmanager.beginTransaction();
+            fragmenttransaction.replace(R.id.frag_contener, ff).commit();
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
@@ -130,8 +132,8 @@ public class MainActivity extends BeamBaseActivity<MainActivityPresenter>
 
         }
 
-        if (drawer.isDrawerOpen(GravityCompat.END)) {
-            drawer.closeDrawer(GravityCompat.END);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
         }
