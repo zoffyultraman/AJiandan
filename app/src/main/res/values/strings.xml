@@ -5,4 +5,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <string name="action_duanzi">段子</string>
+    <string name="action_meizi">妹子</string>
+    <string name="action_wuliao">无聊</string>
 </resources>

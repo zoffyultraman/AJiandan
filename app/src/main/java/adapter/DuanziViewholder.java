@@ -1,4 +1,4 @@
-package model;
+package adapter;
 
 import android.widget.TextView;
 

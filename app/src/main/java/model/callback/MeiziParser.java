@@ -10,26 +10,24 @@ import org.jsoup.select.Elements;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.bean.boring;
 import model.bean.girl;
 import view.fragment.MeiziFragment;
-import view.fragment.PicFragment;
 
 //解析pic和girl通用的 html 的解析类
-public class PicParser {
+public class MeiziParser {
 
     List results = new ArrayList<>();
 
-    public PicParser(String html) {
+    public MeiziParser(String html) {
         try {
             Document doc = Jsoup.parse(html);
             Element body = doc.body();
             Elements items = body.select("ol.commentlist").select("li");
             for (Element item : items) {
-                if (PicFragment.mPage == 0)
-                    PicFragment.mPage = getPage(item);
+                if (MeiziFragment.mPage == 0)
+                    MeiziFragment.mPage = getPage(item);
                 String textattuibitt = item.text();
-                boring g = new boring();
+                girl g = new girl();
                 if ("".equals(getLargeImg(item))) continue;
                 g.setAuthor(getAuthor(textattuibitt));
                 g.setPosttime(getposttime(textattuibitt));
@@ -38,7 +36,6 @@ public class PicParser {
                 g.setLargeurl(getLargeImg(item));
                 g.setThumburl(g.getLargeurl().replace("large", "mw600"));
                 if(g.getThumburl().contains(".gif"))continue;
-                Log.i("TAG",g.getThumburl());
                 results.add(g);
             }
         } catch (Exception e) {

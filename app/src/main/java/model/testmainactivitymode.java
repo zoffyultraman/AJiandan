@@ -4,11 +4,10 @@ import android.content.Context;
 
 import com.jude.beam.model.AbsModel;
 import com.jude.http.RequestListener;
-import com.jude.http.RequestManager;
 
-public class testmode extends AbsModel {
-    public static testmode getInstance() {
-        return getInstance(testmode.class);
+public class testmainactivitymode extends AbsModel {
+    public static testmainactivitymode getInstance() {
+        return getInstance(testmainactivitymode.class);
     }
 
     @Override

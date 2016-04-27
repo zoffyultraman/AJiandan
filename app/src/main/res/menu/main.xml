@@ -6,9 +6,4 @@
         android:orderInCategory="100"
         android:title="@string/action_settings"
         app:showAsAction="never" />
-    <item
-        android:title="title"
-        android:icon="@android:drawable/ic_media_next"
-        android:orderInCategory="100"
-        app:showAsAction="always" />
 </menu>

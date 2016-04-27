@@ -11,7 +11,7 @@
         android:theme="@style/AppTheme">
         <meta-data
             android:name="MODEL"
-            android:value="model.testmode"
+            android:value="model.testmainactivitymode"
             />
         <activity
             android:name="view.activity.MainActivity"

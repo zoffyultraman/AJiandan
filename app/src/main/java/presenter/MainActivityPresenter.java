@@ -5,7 +5,7 @@ import android.util.Log;
 import com.jude.beam.bijection.Presenter;
 import com.jude.http.RequestListener;
 
-import model.testmode;
+import model.testmainactivitymode;
 import view.activity.MainActivity;
 
 public class MainActivityPresenter extends Presenter<MainActivity> {
@@ -15,7 +15,7 @@ public class MainActivityPresenter extends Presenter<MainActivity> {
     }
 
     public void fun(){
-        testmode.getInstance().fun1(new RequestListener() {
+        testmainactivitymode.getInstance().fun1(new RequestListener() {
             @Override
             public void onRequest() {
                 Log.i("test fun","onRequest");

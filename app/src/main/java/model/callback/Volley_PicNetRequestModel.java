@@ -1,6 +1,7 @@
 package model.callback;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -10,22 +11,22 @@ import com.android.volley.toolbox.Volley;
 
 import java.util.List;
 
-public class Volley_NetRequestModel {
-    private volatile static Volley_NetRequestModel instance;
+public class Volley_PicNetRequestModel {
+    private volatile static Volley_PicNetRequestModel instance;
     Context context;
     RequestQueue mQueue = null;
 
-    private Volley_NetRequestModel(Context context) {
+    private Volley_PicNetRequestModel(Context context) {
         this.context = context;
         mQueue = Volley.newRequestQueue(context);
     }
 
-    public static Volley_NetRequestModel getInstance(Context context) {
+    public static Volley_PicNetRequestModel getInstance(Context context) {
         try {
             if (instance == null) {
-                synchronized (Volley_NetRequestModel.class) {
+                synchronized (Volley_PicNetRequestModel.class) {
                     if (instance == null) {
-                        instance = new Volley_NetRequestModel(context);
+                        instance = new Volley_PicNetRequestModel(context);
                     }
                 }
             }
@@ -39,14 +40,16 @@ public class Volley_NetRequestModel {
     添加一个任务到队列中
     * */
     public void addToQueue(String str,final ListCallback callback) {
+        Log.i("Volley_",str);
         try {
             StringRequest stringRequest = new StringRequest(str,
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
-                            DuanziParser DuanziParser = new DuanziParser(response);
-                            callback.onSuccess(DuanziParser.getResult());
+                            PicParser PicParser = new PicParser(response);
+                            callback.onSuccess(PicParser.getResult());
                         }
+
                     }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {

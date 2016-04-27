@@ -14,7 +14,7 @@ import view.fragment.DuanziFragment;
 
 //解析pic html 的类
 public class DuanziParser {
-    ArrayList results = new ArrayList<>();
+    public static ArrayList results = new ArrayList<>();
 
     public DuanziParser(String html) {
         try {
@@ -41,7 +41,7 @@ public class DuanziParser {
         }
     }
 
-    public ArrayList getResult() {
+    public static ArrayList getResult() {
         return results;
     }
 
@@ -63,7 +63,7 @@ public class DuanziParser {
     public static String getContent(Element ele) throws Exception {
         String content = "";
         try {
-            content = ele.select("p").first().text();
+            content = ele.select("p").toString().replace("</p>","").replace("<p>","").replace("<br>","");
         } catch (Exception e) {
             content = "";
         }

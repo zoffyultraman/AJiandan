@@ -9,4 +9,5 @@ public class Duanzipresenter extends Presenter<DuanziFragment> {
     protected void onCreateView(DuanziFragment view) {
         super.onCreateView(view);
     }
+
 }

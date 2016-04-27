@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
@@ -17,11 +18,15 @@ import com.jude.beam.bijection.RequiresPresenter;
 import com.jude.beam.expansion.BeamBaseActivity;
 import com.panshen.ajiandan.ajiandan.R;
 
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import presenter.MainActivityPresenter;
-import view.fragment.PicFragment;
+import view.fragment.MeiziFragment;
 import view.fragment.DuanziFragment;
+import view.fragment.PicFragment;
 import view.fragment.testfrag;
 
 @RequiresPresenter(MainActivityPresenter.class)
@@ -34,15 +39,15 @@ public class MainActivity extends BeamBaseActivity<MainActivityPresenter>
     @Bind(R.id.drawer_layout)
     DrawerLayout drawer;
     @Bind(R.id.nav_view)
-    NavigationView navigationView;
+    NavigationView navigationView;//侧拉栏
     @Bind(R.id.app_bar)
     AppBarLayout appBarLayout;
     @Bind(R.id.frag_contener)
     FrameLayout framelayout;
 
+    MeiziFragment meizif;
+    DuanziFragment duanzif;
     PicFragment picf;
-    DuanziFragment bbb;
-    testfrag ff;
     FragmentTransaction fragmenttransaction;
     FragmentManager fragmentmanager;
 
@@ -52,7 +57,7 @@ public class MainActivity extends BeamBaseActivity<MainActivityPresenter>
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         initview();
-        initfrag();
+        initdata();
         getPresenter().fun();
     }
 
@@ -62,28 +67,16 @@ public class MainActivity extends BeamBaseActivity<MainActivityPresenter>
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setDisplayShowHomeEnabled(false);
         navigationView.setNavigationItemSelectedListener(this);
-//        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
-//            @Override
-//            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-//                if (verticalOffset != 0) {
-//                    fab.hide();
-//                } else {
-//                    fab.show();
-//                }
-//            }
-//        });
     }
 
-    public void initfrag() {
+    public void initdata() {
+        meizif = new MeiziFragment();
+        duanzif = new DuanziFragment();
         picf = new PicFragment();
-        bbb = new DuanziFragment();
-        ff = new testfrag();
         fragmentmanager = getSupportFragmentManager();
         fragmenttransaction = fragmentmanager.beginTransaction();
-        fragmenttransaction.replace(R.id.frag_contener, bbb).commit();
-
+        fragmenttransaction.replace(R.id.frag_contener, duanzif).commit();
     }
-
 
     @Override
     public void onBackPressed() {
@@ -104,9 +97,9 @@ public class MainActivity extends BeamBaseActivity<MainActivityPresenter>
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_settings) {
+
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -114,21 +107,18 @@ public class MainActivity extends BeamBaseActivity<MainActivityPresenter>
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
-
+        fragmenttransaction = fragmentmanager.beginTransaction();
         if (id == R.id.nav_camera) {
-            fragmenttransaction = fragmentmanager.beginTransaction();
-            fragmenttransaction.replace(R.id.frag_contener, bbb).commit();
+
+            fragmenttransaction.replace(R.id.frag_contener, duanzif);
+
         } else if (id == R.id.nav_gallery) {
-            fragmenttransaction = fragmentmanager.beginTransaction();
-            fragmenttransaction.replace(R.id.frag_contener, picf).commit();
+
+            fragmenttransaction.replace(R.id.frag_contener, meizif);
+
         } else if (id == R.id.nav_slideshow) {
-            fragmenttransaction = fragmentmanager.beginTransaction();
-            fragmenttransaction.replace(R.id.frag_contener, ff).commit();
-        } else if (id == R.id.nav_manage) {
 
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+            fragmenttransaction.replace(R.id.frag_contener, picf);
 
         }
 
@@ -137,7 +127,7 @@ public class MainActivity extends BeamBaseActivity<MainActivityPresenter>
         } else {
             super.onBackPressed();
         }
-
-        return false;
+        fragmenttransaction.commit();
+        return true;
     }
 }
